@@ -1,38 +1,73 @@
 import User from "./model"
 import bcrypt from "bcryptjs";
 
-export const signUp = async(req,res,next)=>{
+// export const signUp = async(req,res,next)=>{
 
-    const {name ,email,password} = req.body
+//     const {name ,email,password} = req.body
 
+//     let existingUser;
+//     try{
+//         existingUser = User.findOne({email:email})
+//     }catch(err){
+//         console.log(err)
+//     }
+//     if(existingUser){
+//         return res.status(400).json({message :"User already exist"})
+//     }
+
+//     const hashedPassword = bcrypt.hashSync(password)
+    
+//     const user = new User({
+//         name,
+//         email,
+//         password:hashedPassword
+//     })
+
+//     try{
+//         await user.save();
+//     }catch(err){
+//         console.log(err)
+//     }
+//     return res.status(201).json({message: user})
+    
+
+// }
+
+
+
+export const signUp = async (req, res, next) => {
+    const { name, email, password,phone, gender,city,state } = req.body;
+  
     let existingUser;
-    try{
-        existingUser = User.findOne({email:email})
-    }catch(err){
-        console.log(err)
+    try {
+      existingUser = await User.findOne({ email: email }); // Add 'await' here
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ message: "Internal Server Error" }); // Handle the error
     }
-    if(existingUser){
-        return res.status(400).json({message :"User already exist"})
+  
+    if (existingUser) {
+      return res.status(400).json({ message: "User already exists" });
     }
-
-    const hashedPassword = bcrypt.hashSync(password)
-    
+  
+    const hashedPassword = bcrypt.hashSync(password, 10); // You should specify the number of rounds for bcrypt hashing
+  
     const user = new User({
-        name,
-        email,
-        password:hashedPassword
-    })
-
-    try{
-        await user.save();
-    }catch(err){
-        console.log(err)
+      name,
+      email,
+      password: hashedPassword,
+      phone,gender,city,state
+  
+    });
+  
+    try {
+      await user.save();
+      return res.status(201).json({ message: "User created successfully" });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ message: "Internal Server Error" });
     }
-    return res.status(201).json({message: user})
-    
-
-}
-
+  };
 
 export const signIn = async(req,res,next)=>{
 
@@ -67,7 +102,6 @@ export const getAllUser = async(req,res,next)=>{
     }
     
 }
-
 
 
 

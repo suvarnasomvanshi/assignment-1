@@ -7,8 +7,13 @@ import router from "./route";
 
 
 dotenv.config();
+
+
 const app = express();
 const port  = process.env.PORT || 5000;
+app.use(express.json());
+
+
 
 mongoose.connect(process.env.MONGODB_URL)
 .then(()=>{console.log('connected to database')})

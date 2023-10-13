@@ -21,7 +21,7 @@ const userSchema = new Schema({
         minlength : 6
     },
 
-    Phone : {
+    phone : {
         type :Number,
         required :true,
     },
@@ -35,7 +35,7 @@ const userSchema = new Schema({
         type : String,
     },
 
-    State :{
+    state :{
         type : String,
     }
     
