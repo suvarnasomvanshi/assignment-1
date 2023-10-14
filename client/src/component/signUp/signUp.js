@@ -1,36 +1,32 @@
 
-//name - only alphabates only
 
-//email - alphanumeric only
-
-//phone - number
-
-// gender - radio button
-
-// how did you here about this -radio buttons-option linkdin,facebook,other platform
-
-
-
-//state - search bar with related search option below
 //city - show according to state selected
 
-//save - auto suggested search box
+//save & cancel button
 
-//save button & canel button
 
 
 import React, { useState } from 'react'
+
+
+
+const states = ['Andaman and Nicobar Islands', 'Andhra Pradesh', 'Arunachal Pradesh', 'Assam', 'Bihar', 'Chandigarh', 'Chhattisgarh', 'Dadra and Nagar Haveli and Daman and Diu', 'Delhi', 'Goa', 'Gujarat', 'Haryana', 'Himachal Pradesh', 'Jammu and Kashmir', 'Jharkhand', 'Karnataka', 'Kerala', 'Ladakh', 'Lakshadweep', 'Madhya Pradesh', 'Maharashtra', 'Manipur', 'Meghalaya', 'Mizoram', 'Nagaland', 'Odisha', 'Puducherry', 'Punjab', 'Rajasthan', 'Sikkim', 'Tamil Nadu', 'Telangana', 'Tripura', 'Uttar Pradesh', 'Uttarakhand', 'West Bengal'];
+
+
+
 
 function SignUp(){
 
 const [formData,setFormData]= useState({
   name : '',
   email :'',
+  password :'',
   phone : '',
   gender :'',
   howDidYouHere :'',
+  state:'',
 })
-console.log(formData)
+
 
 const [error,setError] = useState({});
 
@@ -53,6 +49,8 @@ const validateForm =(data)=>{
     error.email = 'Invalid email address';
    }
 
+   if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*?&]).{8,}$/.test(data.password)){error.password = 'Password must contain at least 1 letter, 1 number, and 1 special character and be at least 8 characters long'}
+
    if(!/^\d+$/.test(data.phone)){
     error.phone = 'phone contain only numbers'
    }
@@ -65,11 +63,16 @@ const validateForm =(data)=>{
     error.howDidYouHere = 'please select howDidYouHere'
    }
 
+   if(!data.state){
+    error.state = 'please select state '
+   }
+
+
+
+
    return error;
   
 }
-
-
 
 
 const handleSubmit =(e) =>{
@@ -100,6 +103,8 @@ const handleSubmit =(e) =>{
                 onChange={handleChange}
               />
               {error.name && <span>{error.name}</span>}
+
+               <br/>
               <label>Email:</label>
               <input
                 type='text'
@@ -107,7 +112,18 @@ const handleSubmit =(e) =>{
                 value={formData.email}
                 onChange={handleChange}
               />
-               {error.name && <span>{error.name}</span>}
+               {error.email && <span>{error.email}</span>}
+               <br/>
+               
+               <label>password:</label>
+               <input
+                type='password'
+                name ='password'
+                value = {formData.password}
+                onChange={handleChange}
+               />
+              {error.password && <span>{error.password}</span>}
+              <br/>
 
               <label>phone:</label>
               <input
@@ -116,7 +132,9 @@ const handleSubmit =(e) =>{
                 value={formData.phone}
                 onChange={handleChange}
               />
-               {error.name && <span>{error.name}</span>}
+               {error.phone && <span>{error.phone}</span>}
+
+               <br/>
 
               <label>Gender:</label>
 
@@ -144,8 +162,9 @@ const handleSubmit =(e) =>{
                 checked = {formData.gender === 'other'}
                 onChange={handleChange}
               />
-                {error.name && <span>{error.name}</span>}
+                {error.gender && <span>{error.gender}</span>}
 
+                <br/>
 
               <label>how Did You Here About Us:</label>
               <label>linkdin</label>
@@ -172,13 +191,22 @@ const handleSubmit =(e) =>{
                   checked ={formData.howDidYouHere === 'other platform'}
                   onChange={handleChange}
                 />
-                 {error.name && <span>{error.name}</span>}
+                 {error.howDidYouHere && <span>{error.howDidYouHere}</span>}
+                 <br/>
 
+
+                 <label>Select a State :</label>
+                 <select name='state' value={formData.state} onChange={handleChange}>
+                 <option value =''>select a State</option>
+                      {states.map((state)=>(
+                        <option key ={state} value={state}>{state}</option>
+                      ))}
+
+                 </select>
+                {error.state && <span>{error.state}</span>}
 
 
                  <button type='submit'>Submit</button>
-
-
               
           </form>
     </div>
