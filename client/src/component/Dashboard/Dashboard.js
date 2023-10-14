@@ -11,7 +11,9 @@
 //
 
 import React, { useState, useEffect } from "react";
-import DeleteConfirmationDialog from "../dialogBox"
+import DeleteConfirmationDialog from "../dialogBox";
+
+
 
 
 
@@ -21,14 +23,30 @@ function Dashboard() {
 
 
   //get all users
-  useEffect(() => {
+
+
+  const getAllUser =()=>{
     fetch("http://localhost:8000/api/allusers")
-      .then((res) => res.json())
-      .then((data) => {
-        setAllUsers(data);
-      })
-      .catch((err) => console.log("data fetching error:", err));
-  }, []);
+       .then((res) => res.json())
+       .then((data) => {
+         setAllUsers(data);
+       })
+       .catch((err) => console.log("data fetching error:", err));
+  }
+
+  useEffect(()=>{
+    getAllUser()
+  },[])
+
+
+//   useEffect(() => {
+//     fetch("http://localhost:8000/api/allusers")
+//       .then((res) => res.json())
+//       .then((data) => {
+//         setAllUsers(data);
+//       })
+//       .catch((err) => console.log("data fetching error:", err));
+//   }, []);
 
 
 
@@ -50,6 +68,14 @@ function Dashboard() {
   }, [order]);
 
 
+  //delete user 
+
+  const deleteUser =(_id)=>{
+    console.log(_id)
+    fetch(`http://localhost:8000/api/delete/${_id}`,{method:'DELETE'})
+    .then(()=>{getAllUser()})
+  }
+
 
 
   return (
@@ -65,7 +91,9 @@ function Dashboard() {
             return (
               <li key={user._id}>
                 {user.name} | {user.email} | {user.phone}
-                <button>delete User</button>
+            
+               <DeleteConfirmationDialog deleteUser={()=>deleteUser(user._id)}/>
+              
               </li>
             );
           })}
@@ -78,5 +106,3 @@ function Dashboard() {
 }
 
 export default Dashboard;
-
-

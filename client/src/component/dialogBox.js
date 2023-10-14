@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
-function DeleteConfirmationDialog() {
+
+function DeleteConfirmationDialog(props) {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -21,6 +23,7 @@ function DeleteConfirmationDialog() {
     // You can perform the actual deletion logic
     // and then close the dialog when the action is complete.
     // For demonstration purposes, we'll just close the dialog.
+    props.deleteUser()
     setOpen(false);
   };
 
