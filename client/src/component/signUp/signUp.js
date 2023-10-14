@@ -48,7 +48,25 @@ const validateForm =(data)=>{
      error.name = 'name only contain alphabates & spaces'
    }
 
-   if()
+   if(!/^\w+@\w+\.\w+$/.test(data.email)){
+    error.email = 'Invalid email address';
+   }
+
+   if(!/^\d+$/.test(data.phone)){
+    error.phone = 'phone contain only numbers'
+   }
+
+   if(!data.gender){
+    error.gender = 'Please select gender';
+   }
+
+   if(!data.howDidYouHere){
+    error.howDidYouHere = 'please select howDidYouHere'
+   }
+
+   return error;
+  
+
 }
 
 const handleSubmit =(e) =>{
