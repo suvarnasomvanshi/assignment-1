@@ -30,6 +30,7 @@ const [formData,setFormData]= useState({
   gender :'',
   howDidYouHere :'',
 })
+console.log(formData)
 
 const [error,setError] = useState({});
 
@@ -66,8 +67,10 @@ const validateForm =(data)=>{
 
    return error;
   
-
 }
+
+
+
 
 const handleSubmit =(e) =>{
 
@@ -96,7 +99,7 @@ const handleSubmit =(e) =>{
                 value={formData.name}
                 onChange={handleChange}
               />
-
+              {error.name && <span>{error.name}</span>}
               <label>Email:</label>
               <input
                 type='text'
@@ -104,6 +107,7 @@ const handleSubmit =(e) =>{
                 value={formData.email}
                 onChange={handleChange}
               />
+               {error.name && <span>{error.name}</span>}
 
               <label>phone:</label>
               <input
@@ -112,13 +116,14 @@ const handleSubmit =(e) =>{
                 value={formData.phone}
                 onChange={handleChange}
               />
+               {error.name && <span>{error.name}</span>}
 
               <label>Gender:</label>
 
               <label>male</label>
               <input
                 type ='radio'
-                name = 'male'
+                name = 'gender'
                 value = 'male'
                 checked ={formData.gender === 'male'}
                 onChange={handleChange}
@@ -126,7 +131,7 @@ const handleSubmit =(e) =>{
               <label>female</label>
               <input
                 type='radio'
-                name='female'
+                name='gender'
                 value='female'
                 checked ={formData.gender === 'female'}
                 onChange={handleChange}
@@ -134,17 +139,19 @@ const handleSubmit =(e) =>{
                <label>other</label>
               <input
                 type='radio'
-                name ='other'
+                name ='gender'
                 value='other'
                 checked = {formData.gender === 'other'}
                 onChange={handleChange}
               />
+                {error.name && <span>{error.name}</span>}
+
 
               <label>how Did You Here About Us:</label>
               <label>linkdin</label>
                 <input
                   type='radio'
-                  name='linkdin'
+                  name='howDidYouHere'
                   value='linkdin'
                   checked ={formData.howDidYouHere === 'linkdin'}
                   onChange={handleChange}
@@ -152,7 +159,7 @@ const handleSubmit =(e) =>{
                 <label>faceBook</label>
                 <input
                   type='radio'
-                  name ='faceBook'
+                  name ='howDidYouHere'
                   value='faceBook'
                   checked ={formData.howDidYouHere === 'faceBook'}
                   onChange={handleChange}
@@ -160,13 +167,16 @@ const handleSubmit =(e) =>{
                 <label>other platform</label>
                 <input
                   type='radio'
-                  name='other platform'
+                  name='howDidYouHere'
                   value='other platform'
                   checked ={formData.howDidYouHere === 'other platform'}
                   onChange={handleChange}
                 />
+                 {error.name && <span>{error.name}</span>}
 
 
+
+                 <button type='submit'>Submit</button>
 
 
               
