@@ -82,7 +82,18 @@ const handleSubmit =(e) =>{
   const newError = validateForm(formData);
 
   if(Object.keys(newError).length ===0){
-    console.log('form submitted :', formData);
+
+    const jsonData = JSON.stringify(formData);
+
+    fetch('http://localhost:8000/api/signup',{
+      method : 'post',
+      headers:{
+        'content-type' : 'application/json',
+      },
+
+      body :jsonData
+
+    })
   }
   else{
     setError(newError);
