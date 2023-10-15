@@ -6,25 +6,22 @@
 
 // on click list item - view datails
 
-// delete user - confirmation dialog box
 
-//
+
 
 import React, { useState, useEffect } from "react";
+import {useNavigate} from "react-router-dom";
 import DeleteConfirmationDialog from "../dialogBox";
-
-
 
 
 
 function Dashboard() {
   const [allUsers, setAllUsers] = useState([]);
   const [order, setOrder] = useState("");
+  const navigate = useNavigate();
 
 
-  //get all users
-
-
+  // get all users
   const getAllUser =()=>{
     fetch("http://localhost:8000/api/allusers")
        .then((res) => res.json())
@@ -37,16 +34,6 @@ function Dashboard() {
   useEffect(()=>{
     getAllUser()
   },[])
-
-
-//   useEffect(() => {
-//     fetch("http://localhost:8000/api/allusers")
-//       .then((res) => res.json())
-//       .then((data) => {
-//         setAllUsers(data);
-//       })
-//       .catch((err) => console.log("data fetching error:", err));
-//   }, []);
 
 
 
@@ -76,7 +63,10 @@ function Dashboard() {
     .then(()=>{getAllUser()})
   }
 
-
+const handleDeatails =(_id)=>{
+ navigate(`/dashboard/userdetail/${_id}`)
+ 
+}
 
   return (
     <div>
@@ -89,8 +79,12 @@ function Dashboard() {
         <ul>
           {allUsers.map((user) => {
             return (
+
               <li key={user._id}>
+                
+                <div onClick={()=>handleDeatails(user._id)}>
                 {user.name} | {user.email} | {user.phone}
+                </div>
             
                <DeleteConfirmationDialog deleteUser={()=>deleteUser(user._id)}/>
               

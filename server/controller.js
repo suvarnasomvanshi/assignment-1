@@ -121,3 +121,26 @@ export const deleteUser = async(req,res,next)=>{
 
 
 }
+
+
+
+
+export const getUser = async(req,res,next)=>{
+  
+  const {_id} = req.params;
+  let user;
+
+  try{
+
+   user = await User.findById(_id);
+   if(!user){
+    return res.status(404).json({error : 'User not found'})
+   }
+   res.json(user)
+   
+  }catch(err){
+    res.status(500).json({err:err.message})
+  }
+
+
+}

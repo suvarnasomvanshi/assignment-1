@@ -5,6 +5,7 @@ import StatesOption from "./component/signUp/StatesOption"
 import Dashboard from "./component/Dashboard/Dashboard";
 import {Routes, Route} from 'react-router-dom'
 import DeleteConfirmationDialog from "./component/dialogBox"
+import UserDetail from './component/Dashboard/UserDetail';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard/>}/>
           <Route path="/" element={<SignUp/>}/>
           <Route path="/dialog" element={<DeleteConfirmationDialog/>}/>
+          <Route path="/dashboard/userdetail/:_id" element={<UserDetail/>}/>
         </Routes>
           
     </div>

@@ -19,10 +19,6 @@ function DeleteConfirmationDialog(props) {
   };
 
   const handleDelete = () => {
-    // Handle the delete action here
-    // You can perform the actual deletion logic
-    // and then close the dialog when the action is complete.
-    // For demonstration purposes, we'll just close the dialog.
     props.deleteUser()
     setOpen(false);
   };
