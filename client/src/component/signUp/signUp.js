@@ -1,8 +1,5 @@
-
-
 //city - show according to state selected
 
-//save & cancel button
 
 
 
@@ -49,7 +46,8 @@ const validateForm =(data)=>{
     error.email = 'Invalid email address';
    }
 
-   if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*?&]).{8,}$/.test(data.password)){error.password = 'Password must contain at least 1 letter, 1 number, and 1 special character and be at least 8 characters long'}
+   if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*?&]).{8,}$/.test(data.password)){
+    error.password = 'Password must contain at least 1 letter, 1 number, and 1 special character and be at least 8 characters long'}
 
    if(!/^\d+$/.test(data.phone)){
     error.phone = 'phone contain only numbers'
@@ -92,14 +90,21 @@ const handleSubmit =(e) =>{
       },
       body :jsonData
     })
-
-    navigate('/dashboard')
-
-
+    .then((res)=>res.json())
+    .then((data)=>{
+      if(data.message === 'User created successfully'){
+        navigate('/dashboard')
+      }else if(data.message === 'User already exists'){
+        navigate('/signin')
+      }
+    })
+    .catch((err)=>console.log(err))
   }
+
   else{
     setError(newError);
   }
+
 }
 
 
@@ -222,6 +227,8 @@ const handleSubmit =(e) =>{
                  <button type='submit'>Submit</button>
               
           </form>
+
+          <h4>If already have account :  <button onClick={()=>{navigate('/signin')}}>SignUp</button></h4>
     </div>
   )
 }

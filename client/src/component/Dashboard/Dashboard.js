@@ -11,7 +11,7 @@
 
 import React, { useState, useEffect } from "react";
 import {useNavigate} from "react-router-dom";
-import DeleteConfirmationDialog from "../dialogBox";
+import DeleteConfirmationDialog from "./confirmationDialogBox";
 
 
 
@@ -72,6 +72,8 @@ const handleDeatails =(_id)=>{
     <div>
       <h4> dashboards</h4>
 
+      <button>add new user</button>
+
       <button onClick={() => setOrder("A-Z")}>Sort A-Z</button>
       <button onClick={() => setOrder("Z-A")}>Sort Z-A</button>
 
@@ -94,6 +96,10 @@ const handleDeatails =(_id)=>{
         </ul>
       ) : (
         <h3>NO user found</h3>
+
+         
+
+        
       )}
     </div>
   );
