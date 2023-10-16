@@ -24,8 +24,8 @@ function DeleteConfirmationDialog(props) {
   };
 
   return (
-    <div>
-      <Button variant="outlined" color="secondary" onClick={handleOpen}>
+    <span>
+      <Button variant='contained'  style={{display:'flex'}} onClick={handleOpen}>
         Delete
       </Button>
       <Dialog open={open} onClose={handleClose}>
@@ -34,15 +34,15 @@ function DeleteConfirmationDialog(props) {
           Are you sure you want to delete this item?
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleClose} color="primary"variant='contained'>
             Cancel
           </Button>
-          <Button onClick={handleDelete} color="secondary">
+          <Button onClick={handleDelete} variant='contained'>
             Delete
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </span>
   );
 }
 

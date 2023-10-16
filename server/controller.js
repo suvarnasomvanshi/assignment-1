@@ -76,7 +76,7 @@ export const signIn = async(req,res,next)=>{
     let existingUser;
     try{
         existingUser = await User.findOne({email:email})
-        console.log(existingUser)
+      
     }catch(err){console.log(err)}
 
     if(!existingUser){
@@ -92,32 +92,6 @@ export const signIn = async(req,res,next)=>{
     return res.status(200).json({message:"successful login", user : existingUser})
 } 
 
-
-// export const signIn = async(req,res,next)=>{
-
-//   const {email, password} = req.body;
-//    console.log(req.body)
-
-
-//   let existingUser;
-//   try{
-//    if(existingUser = await User.findOne({email:email})){
-//     console.log(existingUser)
-//    }else if(!existingUser){
-//     console.log("not exist")
-//     return res.status(400).json({message: "User not exist"})
-//    }  
-//   }catch(err){console.log(err)}
-
-  
-
-//   const isPasswordCorrect = bcrypt.compareSync(password,existingUser.password);
-//   if(!isPasswordCorrect){
-//       return res.status(400).json({massage:"invalid email/password"});
-//   }
-
-//   return res.status(200).json({message:"successful login", user : existingUser})
-// } 
 
 
 
@@ -171,4 +145,27 @@ export const getUser = async(req,res,next)=>{
   }
 
 
+}
+
+
+
+export const getLoginPerson = async(req,res,next)=>{
+
+    const{email,password} = req.body;
+
+   let loginPerson;
+
+   try{
+    loginPerson = await User.findOne({email:email})
+       res.json(loginPerson)
+   }catch(err){console.log(err)}
+
+   if(!loginPerson){
+       return res.status(400).json({message: "User not exist"})
+   }
+
+   //return res.status(200).json({message:"", user : loginPerson})
+   
+  
+   
 }

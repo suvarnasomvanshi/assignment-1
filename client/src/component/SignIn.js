@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Box } from "@mui/material/";
+import TextField from "@mui/material/TextField";
+import Button from '@mui/material/Button'
 
 function SignIn() {
   const navigate = useNavigate();
@@ -24,11 +27,9 @@ function SignIn() {
       body: signInData,
     })
       .then((res) => {
-        console.log("Response status:", res.status); // Log the response status
         return res.json();
       })
       .then((data) => {
-        console.log("API response:", data); // Log the API response data
         if (data.message === "successful login") {
           localStorage.setItem('user',JSON.stringify(formData))
           navigate("/dashboard");
@@ -37,7 +38,7 @@ function SignIn() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
         setErr("An error occurred during sign-in");
       });
   };
@@ -46,37 +47,63 @@ function SignIn() {
 
   return (
     <>
+
+    <Box
+
+          sx={{
+               width: 500,
+               height: 700,
+               backgroundColor: '#6200EE',
+               marginInline:'20px',
+               color:'white',
+               
+               
+               '&:hover': {
+               backgroundColor: 'primary.dark',
+               opacity: [1, 1, 1],},
+              }}
+    
+    >
+
+               {/* display:'flex',
+               flexWrap:'wrap',
+               justifyContent:'center',  
+               marginLeft:'30vw', */}
+
+      <h3 style={{paddingTop:'14vh'}}>SignIn</h3>
       <form onSubmit={submit}>
-        <label>Email:</label>
-        <input
+     
+        <TextField
+          label="Email"
           type="email"
           name="email"
           value={formData.email}
           onChange={handleChange}
-        />
-
-        <label>Password:</label>
-        <input
+        /><br/>
+        <TextField
+          label="password"
           type="password"
           name="password"
           value={formData.password}
           onChange={handleChange}
-        />
-        <button type="submit">submit</button>
+        /><br/><br/>
+        <Button type="submit" variant='contained'>submit</Button>
       </form>
 
       {errs && <p>{errs}</p>}
 
-      <h4>
-        If doesent have account :{" "}
-        <button
+      <h5 style={{marginTop:'14vh'}}>
+        If you not have account signIn here :  <Button variant='contained'
           onClick={() => {
             navigate("/");
           }}
         >
           SignUp
-        </button>
-      </h4>
+        </Button>
+      </h5>
+
+
+      </Box>
     </>
   );
 }
